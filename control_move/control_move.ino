@@ -1,6 +1,5 @@
 #include <ros.h>
 #include <std_msgs/UInt16.h>
-#include <std_msgs/Int16.h>
 
 using namespace std;
 
@@ -14,7 +13,6 @@ int m22 = 10;
 
 ros::NodeHandle nh;
 
-std_msgs::Int16 shift_msg;
 
 void turnLeft()
 {
@@ -53,8 +51,6 @@ void goForward()
 void messageCb(const std_msgs::UInt16& message) 
 {
   int shift_val = int(message.data);
-  
-  shift_msg.data = shift_val;
   
   char* log_msg;
   if(shift_val < 0) log_msg = "Left";
