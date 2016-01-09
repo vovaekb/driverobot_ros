@@ -54,7 +54,8 @@ void messageCb(const std_msgs::UInt16& message)
   
   char* log_msg;
   if(shift_val < 0) log_msg = "Left";
-  else log_msg = "Right";
+  else if(shift_val > 0 ) log_msg = "Right";
+  else log_msg = "Forward";
   
   nh.loginfo(log_msg);
 }
