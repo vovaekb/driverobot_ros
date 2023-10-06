@@ -16,6 +16,7 @@
 #include <std_msgs/UInt16.h>
 #include <sensor_msgs/Joy.h>
 
+
 ros::NodeHandle nh;
 
 Servo servo;
@@ -23,6 +24,7 @@ Servo servo;
 // Indices of components in joy message
 int linear_ind = 1;
 int angular_ind = 0;
+
 
 void servo_cb(const sensor_msgs::Joy& joy)
 {

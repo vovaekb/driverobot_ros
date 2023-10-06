@@ -3,7 +3,7 @@
 
 using namespace std;
 
-/* Robot wheel pins */
+// Robot wheel pins
 int m11 = 3;
 int m12 = 6;
 
@@ -50,12 +50,21 @@ void goForward()
 
 void messageCb(const std_msgs::UInt16& message) 
 {
-  int shift_val = int(message.data);
+  int shift_val = (int)message.data;
   
   char* log_msg;
-  if(shift_val < 0) log_msg = "Left";
-  else if(shift_val > 0 ) log_msg = "Right";
-  else log_msg = "Forward";
+  if(shift_val < 0)
+  {
+      log_msg = "Left";
+  }
+  else if(shift_val > 0 )
+  {
+      log_msg = "Right";
+  }
+  else
+  {
+      log_msg = "Forward";
+  }
   
   nh.loginfo(log_msg);
 }

@@ -4,11 +4,10 @@
 
 using namespace std;
 
-/* Robot wheel pins */
 
+// Robot wheel pins
 int m11 = 3;
 int m12 = 6;
-
 int m21 = 9;
 int m22 = 10;
 
@@ -29,7 +28,7 @@ void turnLeft()
 
 void turnRight()
 {
-  nh.loginfo("Turn right");
+    nh.loginfo("Turn right");
     // turn right
     analogWrite(m21, 0);
     analogWrite(m22, 0);
@@ -41,7 +40,7 @@ void turnRight()
 
 void goForward()
 {
-  nh.loginfo("Go forward");
+    nh.loginfo("Go forward");
     // go forward
     analogWrite(m11, 150); 
     analogWrite(m12, 0);
@@ -63,17 +62,34 @@ void stop()
 
 void messageCb(const geometry_msgs::Twist& message) 
 {
-  geometry_msgs::Vector3 linear = message.linear;
-  float forward_vel = float(linear.x);
-  
-  if(forward_vel == 0) { stop(); return; }
-  
-  geometry_msgs::Vector3 angular = message.angular;
-  float ang_vel = float(angular.z);
-  
-  if(ang_vel > 0) { turnLeft(); }
-  else if(ang_vel < 0) { turnRight(); }
-  else { goForward(); }
+    // read linear velocity
+    geometry_msgs::Vector3 linear = message.linear;
+    float forward_vel = (float)linear.x;
+    
+    if(forward_vel == 0)
+    { 
+        stop();
+        return; 
+    }
+    
+    // read angular velocity
+    geometry_msgs::Vector3 angular = message.angular;
+    float ang_vel = (float)angular.z;
+    
+    // if velocity is positive turn left
+    if(ang_vel > 0)
+    {
+        turnLeft();
+    }
+    // if velocity is negative turn right
+    else if(ang_vel < 0)
+    {
+        turnRight();
+    }
+    else 
+    {
+        goForward();
+    }
 }
 
 
@@ -89,6 +105,6 @@ void setup()
 
 void loop()
 {
-  nh.spinOnce();
-  delay(100);
+    nh.spinOnce();
+    delay(100);
 }
